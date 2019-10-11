@@ -1,6 +1,21 @@
 module.exports = function(column, value, studentIDs) {
-  return `function makeUpdateGrade(column, value) {
-    return function updateGrade(studentID) {
+  if (typeof value === 'number') {
+    return `function makeUpdateGrade(column, value) {
+      return function updateGrade(studentID) {
+        $($('th:contains('+studentID+')')
+          .closest('tr')
+          .find('td')[2])
+          .find('input')
+          .first()
+          .val(value);
+      }
+    }
+    updateGrade = makeUpdateGrade(${column}, ${value});
+    ` + studentIDs.map(id => `updateGrade("${id}"); `).join('');
+  }
+  
+  let code = `function makeUpdateGrade(column) {
+    return function updateGrade(studentID, value) {
       $($('th:contains('+studentID+')')
         .closest('tr')
         .find('td')[2])
@@ -9,7 +24,12 @@ module.exports = function(column, value, studentIDs) {
         .val(value);
     }
   }
-  updateGrade = makeUpdateGrade(${column}, ${value});
-  ` + studentIDs.map(id => `updateGrade("${id}"); `).join('');
+  updateGrade = makeUpdateGrade(${column});
+  `;
+  
+  for (let i = 0; i < studentIDs.length; i++) {
+    `updateGrade("${studentIDs[i]}", ${value[i]}); `
+  }
+  return code;
 }
 
