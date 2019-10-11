@@ -28,7 +28,7 @@ module.exports = function(column, value, studentIDs) {
   `;
   
   for (let i = 0; i < studentIDs.length; i++) {
-    `updateGrade("${studentIDs[i]}", ${value[i]}); `
+    code += `updateGrade("${studentIDs[i]}", ${value[i]}); `
   }
   return code;
 }
