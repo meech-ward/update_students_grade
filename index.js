@@ -11,7 +11,8 @@ module.exports = function(column, value, studentIDs) {
       }
     }
     updateGrade = makeUpdateGrade(${column}, ${value});
-    ` + studentIDs.map(id => `updateGrade("${id}"); `).join('');
+    ` + studentIDs.map(id => `updateGrade("${id}"); `).join(`
+    `);
   }
   
   let code = `function makeUpdateGrade(column) {
@@ -28,7 +29,8 @@ module.exports = function(column, value, studentIDs) {
   `;
   
   for (let i = 0; i < studentIDs.length; i++) {
-    code += `updateGrade("${studentIDs[i]}", ${value[i]}); `
+    code += `updateGrade("${studentIDs[i]}", ${value[i]}); 
+    `
   }
   return code;
 }
