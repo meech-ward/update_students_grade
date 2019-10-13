@@ -16,7 +16,7 @@ function parseQuizCSV(filePath) {
       name: `${user.FirstName} ${user.LastName}`,
       username: user.Username,
       question: user['Q #'],
-      questionTitle: user['Q Title'], 
+      questionTitle: user['Q Text'], 
       outOf: user['Out Of'],
       difficulty: user.Difficulty,
       bonus: user['Bonus?'],
