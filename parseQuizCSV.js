@@ -13,9 +13,13 @@ function parseQuizCSV(filePath) {
   const users = parsed.map(user => ({
       id: user['Org Defined ID'],
       answer: user.Answer,
-      name: user.FirstName,
+      name: `${user.FirstName} ${user.LastName}`,
+      username: user.Username,
       question: user['Q #'],
       questionTitle: user['Q Title'], 
+      outOf: user['Out Of'],
+      difficulty: user.Difficulty,
+      bonus: user['Bonus?'],
   }));
 
   return users;
