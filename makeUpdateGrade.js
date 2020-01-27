@@ -4,7 +4,7 @@ module.exports = function(column, value, studentIDs) {
       return function updateGrade(studentID) {
         $($('th:contains('+studentID+')')
           .closest('tr')
-          .find('td')[2])
+          .find('td')[column])
           .find('input')
           .first()
           .val(value);
@@ -19,7 +19,7 @@ module.exports = function(column, value, studentIDs) {
     return function updateGrade(studentID, value) {
       $($('th:contains('+studentID+')')
         .closest('tr')
-        .find('td')[2])
+        .find('td')[column])
         .find('input')
         .first()
         .val(value);
